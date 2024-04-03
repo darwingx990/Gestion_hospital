@@ -1,4 +1,4 @@
-package io.riwi.entities;
+package io.riwi.entity;
 
 public class Medico {
     private int idMedico;

@@ -1,7 +1,7 @@
-package io.riwi.models;
+package io.riwi.model;
 
 import io.riwi.database.ConfigDB;
-import io.riwi.entities.Especialidad;
+import io.riwi.entity.Especialidad;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -62,7 +62,6 @@ public class ModelEspecialidad {
 
     public static boolean modificarEspecialidad(Especialidad especialidad) {
         PreparedStatement psEspecialidad;
-        ResultSet rsEspcialidad;
         Connection connection = ConfigDB.openConnection();
         String sql = "UPDATE especialidad SET nombre=?, descripcion=?  WHERE id_especialidad=?;";
         try {

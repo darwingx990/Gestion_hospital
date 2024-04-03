@@ -1,10 +1,7 @@
 package io.riwi;
 
-import io.riwi.database.ConfigDB;
-import io.riwi.entities.Especialidad;
-import io.riwi.entities.Medico;
-import io.riwi.models.ModelEspecialidad;
-import io.riwi.models.ModelMedico;
+import io.riwi.entity.Medico;
+import io.riwi.model.ModelMedico;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,8 +15,11 @@ public class Main {
 //        ModelEspecialidad.listarEspecialidades();
 
         ModelMedico.listarMedicos();
-        Medico medico = new Medico("Ayda", "Andrade", 3);
-        ModelMedico.agregarMedico(medico);
+        Medico medicoEliminar = new Medico(6, "Johan", "Mosquera", 3);
+        ModelMedico.modificarMedico(medicoEliminar);
+        ModelMedico.listarMedicos();
+//        Medico medico = new Medico("Vanessa","Andrade", 3);
+//        ModelMedico.agregarMedico(medico);
         ModelMedico.listarMedicos();
     }
 }

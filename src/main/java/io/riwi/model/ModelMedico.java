@@ -1,8 +1,7 @@
-package io.riwi.models;
+package io.riwi.model;
 
 import io.riwi.database.ConfigDB;
-import io.riwi.entities.Especialidad;
-import io.riwi.entities.Medico;
+import io.riwi.entity.Medico;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -61,38 +60,38 @@ public class ModelMedico {
         return false;
     }
 
-    public static boolean modificarEspecialidad(Especialidad especialidad) {
-        PreparedStatement psEspecialidad;
-        ResultSet rsEspcialidad;
+    public static boolean modificarMedico(Medico medico) {
+        PreparedStatement psMedico;
         Connection connection = ConfigDB.openConnection();
-        String sql = "UPDATE especialidad SET nombre=?, descripcion=?  WHERE id_especialidad=?;";
+        String sql = "UPDATE medico SET nombre=?, apellidos=?, fk_id_especialidad=? WHERE id_medico=?;";
         try {
-            psEspecialidad = connection.prepareStatement(sql);
-            psEspecialidad.setString(1, especialidad.getNombre());
-            psEspecialidad.setString(2, especialidad.getDescripcion());
-            psEspecialidad.setInt(3, especialidad.getIdEspecialidad());
-            psEspecialidad.execute();
+            psMedico = connection.prepareStatement(sql);
+            psMedico.setString(1, medico.getNombre());
+            psMedico.setString(2, medico.getApellidos());
+            psMedico.setInt(3, medico.getIdEspecialidad());
+            psMedico.setInt(4, medico.getIdMedico());
+            psMedico.execute();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al modificar especialidad >>" + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al modificar medico >>" + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }
         return false;
     }
 
-    public static boolean eliminarEspecialidad(Especialidad especialidad) {
-        PreparedStatement psEspecialidad;
+    public static boolean eliminarMedico(Medico medico) {
+        PreparedStatement psMedico;
         Connection connection = ConfigDB.openConnection();
-        String sql = "DELETE FROM especialidad WHERE id_especialidad=?;";
+        String sql = "DELETE FROM medico WHERE id_medico=?;";
         try {
-            psEspecialidad = connection.prepareStatement(sql);
-            psEspecialidad.setInt(1, especialidad.getIdEspecialidad());
-            psEspecialidad.execute();
+            psMedico = connection.prepareStatement(sql);
+            psMedico.setInt(1, medico.getIdMedico());
+            psMedico.execute();
             return true;
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar especialidad >> " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al eliminar medico >> " + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }

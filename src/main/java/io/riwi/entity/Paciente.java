@@ -1,24 +1,25 @@
-package io.riwi.entities;
+package io.riwi.entity;
 
 public class Paciente {
     private int idPaciente;
     private String nombrePaciente;
+
     private String apellidosPaciente;
     private String fechaNaciemiento;
-    private int documentoIdentidad;
+    private String documentoIdentidad;
 
     public Paciente(){}
     public Paciente(int idPaciente) {
         this.idPaciente = idPaciente;}
 
-    public Paciente( String nombrePaciente, String apellidosPaciente, String fechaNaciemiento, int documentoIdentidad) {
+    public Paciente( String nombrePaciente, String apellidosPaciente, String fechaNaciemiento, String documentoIdentidad) {
         this.nombrePaciente = nombrePaciente;
         this.apellidosPaciente = apellidosPaciente;
         this.fechaNaciemiento = fechaNaciemiento;
         this.documentoIdentidad = documentoIdentidad;
     }
 
-    public Paciente(int idPaciente, String nombrePaciente, String apellidosPaciente, String fechaNaciemiento, int documentoIdentidad) {
+    public Paciente(int idPaciente, String nombrePaciente, String apellidosPaciente, String fechaNaciemiento, String documentoIdentidad) {
         this.idPaciente = idPaciente;
         this.nombrePaciente = nombrePaciente;
         this.apellidosPaciente = apellidosPaciente;
@@ -57,11 +58,11 @@ public class Paciente {
         this.fechaNaciemiento = fechaNaciemiento;
     }
 
-    public int getDocumentoIdentidad() {
+    public String getDocumentoIdentidad() {
         return documentoIdentidad;
     }
 
-    public void setDocumentoIdentidad(int documentoIdentidad) {
+    public void setDocumentoIdentidad(String documentoIdentidad) {
         this.documentoIdentidad = documentoIdentidad;
     }
 
@@ -69,10 +70,10 @@ public class Paciente {
     public String toString() {
         return "Paciente{" +
                 "idPaciente=" + idPaciente +
-                ", \n nombre= '" + nombrePaciente + '\'' +
-                ", \n apellidos= '" + apellidosPaciente + '\'' +
-                ", \n fecha de naciemiento= '" + fechaNaciemiento + '\'' +
-                ", \n documento de Identidad= " + documentoIdentidad +
-                '}';
+                ", nombre= '" + nombrePaciente + '\'' +
+                ", apellidos= '" + apellidosPaciente + '\'' +
+                ", fecha de naciemiento= '" + fechaNaciemiento + '\'' +
+                ", documento de Identidad= " + documentoIdentidad +
+                "}\n";
     }
 }
