@@ -2,6 +2,7 @@ package io.riwi.models;
 
 import io.riwi.database.ConfigDB;
 import io.riwi.entities.Especialidad;
+import io.riwi.entities.Medico;
 
 import javax.swing.*;
 import java.sql.Connection;
@@ -11,49 +12,49 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelEspecialidad {
-    public static List<Especialidad> listarEspecialidades() {
-        List<Especialidad> especialidades = new ArrayList<>();
-        PreparedStatement psEspecialidad;
-        ResultSet rsEspcialidad;
+public class ModelMedico {
+    public static List<Medico> listarMedicos() {
+        List<Medico> medicos = new ArrayList<>();
+        PreparedStatement psMedico;
+        ResultSet rsMedico;
         Connection connection = ConfigDB.openConnection();
-        String sql = "SELECT * FROM especialidad ORDER BY id_especialidad;";
+        String sql = "SELECT * FROM medico ORDER BY id_medico;";
         try {
-            psEspecialidad = connection.prepareStatement(sql);
-            rsEspcialidad = psEspecialidad.executeQuery();
+            psMedico = connection.prepareStatement(sql);
+            rsMedico = psMedico.executeQuery();
 
-            while (rsEspcialidad.next()) {
-                Especialidad especialidad = new Especialidad();
-                especialidad.setIdEspecialidad(rsEspcialidad.getInt("id_especialidad"));
-                especialidad.setNombre(rsEspcialidad.getString("nombre"));
-                especialidad.setDescripcion(rsEspcialidad.getString("descripcion"));
+            while (rsMedico.next()) {
+                Medico medico = new Medico();
+                medico.setIdMedico(rsMedico.getInt("id_medico"));
+                medico.setNombre(rsMedico.getString("nombre"));
+                medico.setApellidos(rsMedico.getString("apellidos"));
+                medico.setIdEspecialidad(rsMedico.getInt("fk_id_especialidad"));
 
-                especialidades.add(especialidad);
+                medicos.add(medico);
             }
-            JOptionPane.showMessageDialog(null, especialidades);
+            JOptionPane.showMessageDialog(null, medicos);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar los datos. " + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }
-            return especialidades;
-
-
+            return medicos;
     }
 
-    public static boolean agregarEspecialidad(Especialidad especialidad) {
-        PreparedStatement psEspecialidad;
+    public static boolean agregarMedico(Medico medico) {
+        PreparedStatement psMedico;
         Connection connection = ConfigDB.openConnection();
-        String sql = "INSERT INTO especialidad(nombre, descripcion) VALUES (?, ?);";
+        String sql = "INSERT INTO medico(nombre, apellidos, fk_id_especialidad) VALUES (?, ?, ?);";
         try {
-            psEspecialidad = connection.prepareStatement(sql);
+            psMedico = connection.prepareStatement(sql);
 
-            psEspecialidad.setString(1, especialidad.getNombre());
-            psEspecialidad.setString(2, especialidad.getDescripcion());
-            psEspecialidad.execute();
+            psMedico.setString(1, medico.getNombre());
+            psMedico.setString(2, medico.getApellidos());
+            psMedico.setInt(3, medico.getIdEspecialidad());
+            psMedico.execute();
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar paciente >> " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al agregar medico >> " + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }

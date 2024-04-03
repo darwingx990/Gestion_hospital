@@ -66,6 +66,6 @@ public class Medico {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", idEspecialidad=" + idEspecialidad +
-                '}';
+                "}\n";
     }
 }
