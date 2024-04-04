@@ -1,6 +1,7 @@
 package io.riwi.model;
 
 import io.riwi.database.ConfigDB;
+import io.riwi.entity.Cita;
 import io.riwi.entity.Medico;
 import io.riwi.entity.Paciente;
 
@@ -12,34 +13,53 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModelPaciente {
-    public static List<Paciente> listarPaciente() {
-        List<Paciente>pacientes = new ArrayList<>();
+public class ModelCita {
+    public static List<Cita> listarPaciente() {
+        List<Cita >citas = new ArrayList<>();
         PreparedStatement psPaciente;
         ResultSet rsPaciente;
         Connection connection = ConfigDB.openConnection();
-        String sql = "SELECT * FROM paciente ORDER BY id_paciente;";
+        String sql = "SELECT * FROM cita INNER JOIN paciente ON paciente.id_paciente = cita.fk_id_paciente " +
+                "INNER JOIN medico ON medico.id_medico = cita.fk_id_medico ORDER BY id_paciente;";
         try {
             psPaciente = connection.prepareStatement(sql);
             rsPaciente = psPaciente.executeQuery();
 
             while (rsPaciente.next()) {
+                Cita cita = new Cita();
+                Medico medico  = new Medico();
                 Paciente paciente = new Paciente();
-                paciente.setIdPaciente(rsPaciente.getInt("id_paciente"));
-                paciente.setNombrePaciente(rsPaciente.getString("nombre"));
-                paciente.setApellidosPaciente(rsPaciente.getString("apellidos"));
-                paciente.setFechaNaciemiento(rsPaciente.getString("fecha_nacimiento"));
-                paciente.setDocumentoIdentidad(rsPaciente.getString("documento_identidad"));
 
-                pacientes.add(paciente);
+                cita.setIdCitas(rsPaciente.getInt("cita.id_cita"));
+                cita.setFechaCita(rsPaciente.getString("cita.fecha_cita"));
+                cita.setHoraCita(rsPaciente.getString("cita.hora_cita"));
+                cita.setIdPaciente(rsPaciente.getInt("cita.fk_id_paciente"));
+                cita.setIdMedico(rsPaciente.getInt("cita.fk_id_medico"));
+                cita.setMotivoCita(rsPaciente.getString("cita.motivo_cita"));
+
+
+                paciente.setIdPaciente(rsPaciente.getInt("paciente.id_paciente"));
+                paciente.setNombrePaciente(rsPaciente.getString("paciente.nombre"));
+                paciente.setApellidosPaciente(rsPaciente.getString("paciente.apellidos"));
+                paciente.setFechaNaciemiento(rsPaciente.getString("paciente.fecha_nacimiento"));
+                paciente.setDocumentoIdentidad(rsPaciente.getString("paciente.documento_identidad"));
+
+                medico.setIdMedico(rsPaciente.getInt("medico.id_medico"));
+                medico.setNombre(rsPaciente.getString("medico.nombre"));
+                medico.setApellidos(rsPaciente.getString("medico.apellidos"));
+                medico.setIdEspecialidad(rsPaciente.getInt("medico.fk_id_especialidad"));
+
+                cita.setObjPaciente(paciente);
+                cita.setObjMedico(medico);
+                citas.add(cita);
             }
-            JOptionPane.showMessageDialog(null, pacientes);
+            JOptionPane.showMessageDialog(null, citas);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar los datos. " + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }
-            return pacientes;
+            return citas;
     }
 
     public static boolean agregarPaciente(Paciente paciente) {
@@ -102,7 +122,6 @@ public class ModelPaciente {
         }
         return false;
     }
-
 
     public static void main(String[] args) {
         listarPaciente();
