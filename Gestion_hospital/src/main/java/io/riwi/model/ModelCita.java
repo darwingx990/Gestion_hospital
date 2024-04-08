@@ -78,7 +78,7 @@ public class ModelCita {
 
             return true;
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al agregar paciente >> " + e.getMessage());
+            JOptionPane.showMessageDialog(null, "Error al agregar cita >> " + e.getMessage());
         } finally {
             ConfigDB.closeConnection();
         }

@@ -30,7 +30,7 @@ public class ModelEspecialidad {
 
                 especialidades.add(especialidad);
             }
-            JOptionPane.showMessageDialog(null, especialidades);
+//            JOptionPane.showMessageDialog(null, especialidades);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar los datos. " + e.getMessage());
         } finally {
@@ -87,6 +87,7 @@ public class ModelEspecialidad {
             psEspecialidad = connection.prepareStatement(sql);
             psEspecialidad.setInt(1, especialidad.getIdEspecialidad());
             psEspecialidad.execute();
+            JOptionPane.showMessageDialog(null,"Eliminado correctamente");
             return true;
 
         } catch (Exception e) {

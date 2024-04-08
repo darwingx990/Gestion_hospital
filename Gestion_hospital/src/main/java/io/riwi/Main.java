@@ -1,25 +1,77 @@
 package io.riwi;
 
+import io.riwi.controller.ControllerEspecialidad;
 import io.riwi.entity.Medico;
 import io.riwi.model.ModelMedico;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-//        Especialidad especialidad = new Especialidad("Endocrinologia", "Se encargar analizar las hormonas de tiroides.");
-//        ModelEspecialidad.agregarEspecialidad(especialidad);
-//        Especialidad espModificar = new Especialidad(1, "Nutricionista", "Encargado de la alimentacion saludable.");
-//        ModelEspecialidad.modificarEspecialidad(espModificar);
-//        ModelEspecialidad.listarEspecialidades();
-//        Especialidad espEliminar = new Especialidad(1);
-//        ModelEspecialidad.eliminarEspecialidad(espEliminar);
-//        ModelEspecialidad.listarEspecialidades();
+        int option1 = 0, option2 = 0;
 
-        ModelMedico.listarMedicos();
-        Medico medicoEliminar = new Medico(6, "Johan", "Mosquera", 3);
-        ModelMedico.modificarMedico(medicoEliminar);
-        ModelMedico.listarMedicos();
-//        Medico medico = new Medico("Vanessa","Andrade", 3);
-//        ModelMedico.agregarMedico(medico);
-        ModelMedico.listarMedicos();
+        do {
+            try {
+                option1 = Integer.parseInt(JOptionPane.showInputDialog("""
+                        ========================
+                            MENU DE OPCIONES
+                        ========================
+                        1. Administrar Especialidades
+                        2. Administrar Medicos
+                        3. Administrar Paciente
+                        4. Administrar Citas
+                        5. Salir
+                                            
+                        Ingrese una opción:
+                        """));
+
+                switch (option1) {
+                    case 1:
+                        option2 = Integer.parseInt(JOptionPane.showInputDialog("""
+                                1. Agregar Especialidad
+                                2. Listar Especialidad
+                                3. Actualizar Especialidad
+                                4. Eliminar Especialidad
+                                5. Regresar
+                                                    
+                                Ingrese un opción:
+                                """));
+                        switch (option2) {
+                            case 1:
+                                ControllerEspecialidad.insertarEspecialidad();
+                                break;
+
+                            case 2:
+                                ControllerEspecialidad.listarEspecialidad();
+                                break;
+
+                            case 3:
+                                ControllerEspecialidad.modificarEspecialidad();
+                                break;
+
+                            case 4:
+                                ControllerEspecialidad.deleteEspecialista();
+                                break;
+
+                            case 5:
+                                break;
+
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opcion no valida.");
+                                break;
+                        }
+
+                    case 5:
+                        break;
+
+                    default:
+                        JOptionPane.showMessageDialog(null, "Opcion no valida. Intentalo nuevamente. opttoon");
+                        break;
+                }
+            } catch (Exception error) {
+                JOptionPane.showMessageDialog(null, "Opcion no valida. Intentalo nuevamente.");
+            }
+        } while (option1 != 5);
+        JOptionPane.showMessageDialog(null, "Hasta pronto 👍");
     }
 }
