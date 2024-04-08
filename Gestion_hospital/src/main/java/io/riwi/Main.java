@@ -101,7 +101,7 @@ public class Main {
                         break;
 
                     default:
-                        JOptionPane.showMessageDialog(null, "Opcion no valida. Intentalo nuevamente. opttoon");
+                        JOptionPane.showMessageDialog(null, "Opcion no valida. Intentalo nuevamente.");
                         break;
                 }
             } catch (Exception error) {

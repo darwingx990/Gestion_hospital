@@ -39,7 +39,7 @@ public class ControllerPaciente {
 
         String name = JOptionPane.showInputDialog("Ingrese el nombre del paciente:");
         String apellidos = JOptionPane.showInputDialog("Ingrese los apellidos del paciente");
-        String fechaNaciemiento = JOptionPane.showInputDialog("Ingrese la fecha de nacimiento del paciente:");
+        String fechaNaciemiento = JOptionPane.showInputDialog("Ingrese la fecha de nacimiento del paciente (AAAA-MM-DD):");
         String documentoIdentidad = JOptionPane.showInputDialog("Ingrese documento de identidad del paciente:");
 
         pacienteModificar.setNombrePaciente(name);
@@ -63,8 +63,9 @@ public class ControllerPaciente {
     }
 
     public static void deletePaciente() {
-        Object[] options = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
+        Object[] options = Utils.listToArray(ModelPaciente.listarPaciente());
         Paciente pacienteEliminar = (Paciente) JOptionPane.showInputDialog(null, "Seleecione un paciente:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         ModelPaciente.eliminarPaciente(pacienteEliminar);
+        JOptionPane.showMessageDialog(null, "Paciente eliminado Correctamente.");
     }
 }

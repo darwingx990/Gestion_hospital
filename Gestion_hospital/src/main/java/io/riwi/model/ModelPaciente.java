@@ -35,7 +35,7 @@ public class ModelPaciente {
 
                 pacientes.add(paciente);
             }
-            JOptionPane.showMessageDialog(null, pacientes);
+//            JOptionPane.showMessageDialog(null, pacientes);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar los datos. " + e.getMessage());
         } finally {
