@@ -1,6 +1,7 @@
 package io.riwi;
 
 import io.riwi.controller.ControllerEspecialidad;
+import io.riwi.controller.ControllerPaciente;
 import io.riwi.entity.Medico;
 import io.riwi.model.ModelMedico;
 
@@ -51,6 +52,41 @@ public class Main {
 
                             case 4:
                                 ControllerEspecialidad.deleteEspecialista();
+                                break;
+
+                            case 5:
+                                break;
+
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opcion no valida.");
+                                break;
+                        }
+
+                    case 3:
+                        option2 = Integer.parseInt(JOptionPane.showInputDialog("""
+                                1. Agregar Paciente
+                                2. Listar Paciente
+                                3. Actualizar Paciente
+                                4. Eliminar Paciente
+                                5. Regresar
+                                                    
+                                Ingrese un opción:
+                                """));
+                        switch (option2) {
+                            case 1:
+                                ControllerPaciente.insertarPaciente();
+                                break;
+
+                            case 2:
+                                ControllerPaciente.listarPaciente();
+                                break;
+
+                            case 3:
+                                ControllerPaciente.modificarPaciente();
+                                break;
+
+                            case 4:
+                                ControllerPaciente.deletePaciente();
                                 break;
 
                             case 5:
