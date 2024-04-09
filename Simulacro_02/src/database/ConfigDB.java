@@ -3,7 +3,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-//Esta clase se encargara de establecer y cerrar la conexion de la base de datos
 public class ConfigDB {
 
     //Este atributo tendra el estado de la conexion

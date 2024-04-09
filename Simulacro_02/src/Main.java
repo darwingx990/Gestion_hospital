@@ -5,14 +5,11 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-        //Implementa validaciones para asegurar que no se exceda la capacidad de los aviones con las
-        //reservaciones, y no se debe poder reservar un asiento que ya esta reservado.
-
-        String option = "";
-        String option1 = "";
-        String option2 = "";
-        String option3 = "";
-        String option4 = "";
+        String option;
+        String option1;
+        String option2;
+        String option3;
+        String option4;
 
         do {
             option = JOptionPane.showInputDialog("""
