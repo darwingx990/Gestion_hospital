@@ -1,6 +1,7 @@
 package io.riwi;
 
 import io.riwi.controller.ControllerEspecialidad;
+import io.riwi.controller.ControllerMedico;
 import io.riwi.controller.ControllerPaciente;
 import io.riwi.entity.Medico;
 import io.riwi.model.ModelMedico;
@@ -61,6 +62,43 @@ public class Main {
                                 JOptionPane.showMessageDialog(null, "Opcion no valida.");
                                 break;
                         }
+                        break;
+
+                    case 2:
+                        option2 = Integer.parseInt(JOptionPane.showInputDialog("""
+                                1. Agregar Medico
+                                2. Listar Medico
+                                3. Actualizar Medico
+                                4. Eliminar Medico
+                                5. Regresar
+                                                    
+                                Ingrese un opción:
+                                """));
+                        switch (option2) {
+                            case 1:
+                                ControllerMedico.insertarMedico();
+                                break;
+
+                            case 2:
+                                ControllerMedico.listarMedico();
+                                break;
+
+                            case 3:
+                                ControllerMedico.modificarMedico();
+                                break;
+
+                            case 4:
+                                ControllerMedico.deleteMedico();
+                                break;
+
+                            case 5:
+                                break;
+
+                            default:
+                                JOptionPane.showMessageDialog(null, "Opcion no valida.");
+                                break;
+                        }
+                        break;
 
                     case 3:
                         option2 = Integer.parseInt(JOptionPane.showInputDialog("""
@@ -96,6 +134,11 @@ public class Main {
                                 JOptionPane.showMessageDialog(null, "Opcion no valida.");
                                 break;
                         }
+                        break;
+
+                    case 4:
+
+                        break;
 
                     case 5:
                         break;

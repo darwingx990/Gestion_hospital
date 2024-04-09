@@ -95,6 +95,7 @@ public class ModelPaciente {
             psPaciente = connection.prepareStatement(sql);
             psPaciente.setInt(1, paciente.getIdPaciente());
             psPaciente.execute();
+            JOptionPane.showMessageDialog(null,"Registro eliminado exitosamente");
             return true;
 
         } catch (Exception e) {

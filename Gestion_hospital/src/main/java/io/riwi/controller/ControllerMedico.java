@@ -1,7 +1,9 @@
 package io.riwi.controller;
+
 import io.riwi.entity.Especialidad;
 import io.riwi.entity.Medico;
 import io.riwi.model.ModelEspecialidad;
+import io.riwi.model.ModelMedico;
 import io.riwi.utils.Utils;
 
 import javax.swing.*;
@@ -11,52 +13,52 @@ public class ControllerMedico {
     public static void insertarMedico() {
         String name = JOptionPane.showInputDialog("Ingrese el nombre de la especialidad:");
         String apellido = JOptionPane.showInputDialog("Ingrese el apellido del medico:");
-       Object[] options = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
-//Especialidad idEspecialidad = (String) options;
-        Medico nuevoMedico = new Medico(name, apellido, Integer.parseInt(options));
+        Object[] options = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
 
-        ModelEspecialidad.agregarEspecialidad(nuevoMedico);
-        JOptionPane.showMessageDialog(null, "Especialidad agregada correctamente.");
+        Especialidad especialidadMedico = (Especialidad) JOptionPane.showInputDialog(null, "Seleccione una especialidad:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+
+        Medico nuevoMedico = new Medico(name, apellido, especialidadMedico.getIdEspecialidad(), especialidadMedico);
+
+        ModelMedico.agregarMedico(nuevoMedico);
+        JOptionPane.showMessageDialog(null, "Medico agregado correctamente.");
     }
 
-    public static void listarEspecialidad() {
-        String listaEspecialidades = """
+    public static void listarMedico() {
+        String listaMedico = """
                 ========================
-                  LISTA ESPECIALIDADES
+                   LISTA DE MEDICOS
                 ========================
                 """;
-//        List<Especialidad> listaEsp = ModelEspecialidad.listarEspecialidades();
-        for (Especialidad especialidad : ModelEspecialidad.listarEspecialidades()) {
-            listaEspecialidades += especialidad;
+        for (Medico medico : ModelMedico.listarMedicos()) {
+            listaMedico += medico;
         }
-        JOptionPane.showMessageDialog(null, listaEspecialidades);
+        JOptionPane.showMessageDialog(null, listaMedico);
     }
 
-    public static void modificarEspecialidad() {
-        Object[] options = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
-        Especialidad espModificar = (Especialidad) JOptionPane.showInputDialog(null, "Seleecione la especialidad que quiere modificar:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+    public static void modificarMedico() {
+        Object[] options = Utils.listToArray(ModelMedico.listarMedicos());
+        Medico medicoModificar = (Medico) JOptionPane.showInputDialog(null, "Seleecione el medico a eliminar:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
 
-        String nombre = JOptionPane.showInputDialog("Ingrese la nueva especialidad:");
-        String descripcion = JOptionPane.showInputDialog("Ingrese la descripcion");
+        String name = JOptionPane.showInputDialog("Ingrese el nombre de la especialidad:");
+        String apellido = JOptionPane.showInputDialog("Ingrese el apellido del medico:");
 
-        espModificar.setNombre(nombre);
-        espModificar.setDescripcion(descripcion);
+        Object[] options2 = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
+        Especialidad especialidadMedico = (Especialidad) JOptionPane.showInputDialog(null, "Seleccione una especialidad:", "", JOptionPane.QUESTION_MESSAGE, null, options2, options2[0]);
 
-        ModelEspecialidad.modificarEspecialidad(espModificar);
-        JOptionPane.showMessageDialog(null, "Especialidad actualizada correctamente.");
+        medicoModificar.setNombre(name);
+        medicoModificar.setApellidos(apellido);
+        medicoModificar.setEspecialidadMedico(especialidadMedico);
+
+        ModelMedico.modificarMedico(medicoModificar);
+        JOptionPane.showMessageDialog(null, "Registro actualizado correctamente.");
+    }
 
 
-//        PRIMER INTENTO. POCO EFECTIVO.
-//        List<Especialidad> listaEsp = ModelEspecialidad.listarEspecialidades();
-//        Especialidad idModificar = new Especialidad(Integer.parseInt(JOptionPane.showInputDialog("Ingrese el ID de la esecialidad a modificar:\n" + ModelEspecialidad.listarEspecialidades())));
-//        if (listaEsp.contains(idModificar.getIdEspecialidad())) {
-//            String nombre = JOptionPane.showInputDialog("Ingrese la nueva especialidad:");
-//            String descripcion = JOptionPane.showInputDialog("Ingrese la descripcion");
-//            Especialidad espModificar = new Especialidad(idModificar.getIdEspecialidad(), nombre, descripcion);
-//            boolean modificado = ModelEspecialidad.modificarEspecialidad(espModificar);
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Error al modificar especialidad.");
-//        }
+    public static void deleteMedico() {
+        Object[] options = Utils.listToArray(ModelMedico.listarMedicos());
+        Medico medicoEliminar = (Medico) JOptionPane.showInputDialog(null, "Seleecione el medico a eliminar:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+        ModelMedico.eliminarMedico(medicoEliminar);
+        JOptionPane.showMessageDialog(null,"Registro eliminado exitosamente");
     }
 
     public static void eliminarEspecialidad() {
@@ -68,11 +70,5 @@ public class ControllerMedico {
             JOptionPane.showMessageDialog(null, "Error al eliminar especialista.");
         }
 
-    }
-
-    public static void deleteEspecialista() {
-        Object[] options = Utils.listToArray(ModelEspecialidad.listarEspecialidades());
-        Especialidad espEliminar = (Especialidad) JOptionPane.showInputDialog(null, "Seleecione una especialidad:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-        ModelEspecialidad.eliminarEspecialidad(espEliminar);
     }
 }

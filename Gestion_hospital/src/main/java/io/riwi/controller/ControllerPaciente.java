@@ -66,6 +66,6 @@ public class ControllerPaciente {
         Object[] options = Utils.listToArray(ModelPaciente.listarPaciente());
         Paciente pacienteEliminar = (Paciente) JOptionPane.showInputDialog(null, "Seleecione un paciente:", "", JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
         ModelPaciente.eliminarPaciente(pacienteEliminar);
-        JOptionPane.showMessageDialog(null, "Paciente eliminado Correctamente.");
+//        JOptionPane.showMessageDialog(null, "Paciente eliminado Correctamente.");
     }
 }

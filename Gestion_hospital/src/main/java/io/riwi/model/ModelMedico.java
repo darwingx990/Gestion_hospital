@@ -1,6 +1,7 @@
 package io.riwi.model;
 
 import io.riwi.database.ConfigDB;
+import io.riwi.entity.Especialidad;
 import io.riwi.entity.Medico;
 
 import javax.swing.*;
@@ -14,24 +15,32 @@ import java.util.List;
 public class ModelMedico {
     public static List<Medico> listarMedicos() {
         List<Medico> medicos = new ArrayList<>();
+        Connection connection = ConfigDB.openConnection();
+
         PreparedStatement psMedico;
         ResultSet rsMedico;
-        Connection connection = ConfigDB.openConnection();
-        String sql = "SELECT * FROM medico ORDER BY id_medico;";
+        String sql = "SELECT * FROM medico\n"+
+                "INNER JOIN especialidad ON medico.fk_id_especialidad = especialidad.id_especialidad ORDER BY id_medico;";
         try {
             psMedico = connection.prepareStatement(sql);
             rsMedico = psMedico.executeQuery();
 
             while (rsMedico.next()) {
                 Medico medico = new Medico();
+                Especialidad especialidadMedico = new Especialidad();
                 medico.setIdMedico(rsMedico.getInt("id_medico"));
                 medico.setNombre(rsMedico.getString("nombre"));
                 medico.setApellidos(rsMedico.getString("apellidos"));
                 medico.setIdEspecialidad(rsMedico.getInt("fk_id_especialidad"));
 
+                especialidadMedico.setIdEspecialidad(rsMedico.getInt("especialidad.id_especialidad"));
+                especialidadMedico.setNombre(rsMedico.getString("especialidad.nombre"));
+                especialidadMedico.setDescripcion(rsMedico.getString("especialidad.descripcion"));
+
+                medico.setEspecialidadMedico(especialidadMedico);
                 medicos.add(medico);
             }
-            JOptionPane.showMessageDialog(null, medicos);
+//            JOptionPane.showMessageDialog(null, medicos);
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error al mostrar los datos. " + e.getMessage());
         } finally {
